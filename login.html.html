@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Your Money Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    * { box-sizing: border-box; margin:0; padding:0; font-family:'Poppins', sans-serif;}
+    body { background: linear-gradient(to bottom right, #ffe6f0, #fff0f5); min-height:100vh; display:flex; justify-content:center; align-items:center; }
+    .container { width: 90%; max-width: 1000px; background:#fff; border-radius:15px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.1); position:relative; }
+    /* Navbar */
+    nav { background:#ff69b4; color:white; padding:15px 30px; display:flex; justify-content:space-between; align-items:center; }
+    nav .logo { display:flex; align-items:center; font-weight:600; font-size:1.3rem; }
+    nav .logo img { width:50px; margin-right:10px; }
+    nav .menu button { background:none; border:none; color:white; font-weight:500; margin-left:20px; cursor:pointer; font-size:1rem; }
+    nav .menu button:hover { text-decoration:underline; }
+    /* Slide pages */
+    .slide { display:none; padding:40px; min-height:500px; }
+    .slide.active { display:block; animation: fadein 0.5s; }
+    @keyframes fadein { from{opacity:0;} to{opacity:1;} }
+    h1, h2 { color:#ff69b4; margin-bottom:20px; text-align:center; }
+    .hero { display:flex; flex-direction:column; align-items:center; justify-content:center; background: linear-gradient(to bottom right,#ffb6c1,#ffc0cb); padding:80px 20px; border-radius:15px; }
+    .hero img { width:100px; margin-bottom:20px; }
+    button { padding:12px 25px; border:none; border-radius:8px; background:#ff69b4; color:white; cursor:pointer; margin:10px 0; font-weight:500; transition:0.3s; }
+    button:hover { background:#ff1493; }
+    input { width:90%; padding:10px; margin:10px 0; border:1px solid #ffb6c1; border-radius:6px; }
+    /* Dashboard operations */
+    .operations { display:flex; justify-content:space-around; flex-wrap:wrap; margin-top:20px; }
+    .card { flex:1 1 200px; background:#fff0f5; margin:10px; border-radius:12px; padding:20px; box-shadow:0 5px 15px rgba(0,0,0,0.05); transition:0.3s; text-align:center; }
+    .card:hover { transform:translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,0.1); }
+    .card img { width:60px; margin-bottom:10px; }
+    .balance { font-size:1.3rem; color:#ff69b4; margin-top:15px; text-align:center; }
+    /* Color themes for operations */
+    .deposit { background:#d4edda; }
+    .withdraw { background:#f8d7da; }
+    .check { background:#d1ecf1; }
+    .back { background:#ffaacc; margin-top:10px; }
+    /* Forms */
+    .form-group { margin:20px 0; display:flex; flex-direction:column; align-items:center; }
+    .form-group input { width:70%; }
+    /* Footer */
+    footer { text-align:center; padding:15px; background:#ffb6c1; color:white; font-weight:500; border-radius:0 0 15px 15px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo"><img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="Piggy Bank"> Your Money Tracker</div>
+        <div class="menu">
+            <button onclick="showSlide('slideHero')">Home</button>
+            <button onclick="alert('Review Section')">Review</button>
+            <button onclick="alert('Help Section')">Help</button>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Slides -->
+    <div id="slideHero" class="slide active">
+        <div class="hero">
+            <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="Piggy Bank">
+            <h1>Welcome to Your Money Tracker</h1>
+            <p>Track, Save, Deposit & Withdraw with ease!</p>
+            <button onclick="showSlide('slideMenu')">Get Started</button>
+        </div>
+    </div>
+
+    <div id="slideMenu" class="slide">
+        <h2>Main Menu</h2>
+        <div class="operations">
+            <div class="card"><button onclick="showSlide('slideRegister')">Register</button></div>
+            <div class="card"><button onclick="showSlide('slideLogin')">Login</button></div>
+            <div class="card"><button onclick="alert('Thank you!')">Exit</button></div>
+        </div>
+    </div>
+
+    <!-- Register -->
+    <div id="slideRegister" class="slide">
+        <h2>Create Account</h2>
+        <div class="form-group">
+            <input type="text" id="regName" placeholder="Enter Name">
+            <input type="password" id="regPass" placeholder="Enter Password">
+            <input type="number" id="regAmount" placeholder="Initial Deposit">
+            <button onclick="register()">Register Account</button>
+        </div>
+        <button class="back" onclick="showSlide('slideMenu')">Back to Menu</button>
+    </div>
+
+    <!-- Login -->
+    <div id="slideLogin" class="slide">
+        <h2>Login</h2>
+        <div class="form-group">
+            <input type="text" id="loginName" placeholder="Enter Name">
+            <input type="password" id="loginPass" placeholder="Enter Password">
+            <button onclick="login()">Login</button>
+        </div>
+        <button class="back" onclick="showSlide('slideMenu')">Back to Menu</button>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="slideDashboard" class="slide">
+        <h2>Dashboard</h2>
+        <div class="operations">
+            <div class="card deposit"><button onclick="showSlide('slideDeposit')">Deposit Money</button></div>
+            <div class="card withdraw"><button onclick="showSlide('slideWithdraw')">Withdraw Money</button></div>
+            <div class="card check"><button onclick="checkBalance()">Check Balance</button></div>
+        </div>
+        <div class="balance" id="balanceInfo"></div>
+    </div>
+
+    <!-- Deposit -->
+    <div id="slideDeposit" class="slide deposit">
+        <h2>Deposit Money</h2>
+        <div class="form-group">
+            <input type="number" id="depositAmount" placeholder="Enter Amount">
+            <button onclick="deposit()">Deposit</button>
+        </div>
+        <button class="back" onclick="showSlide('slideDashboard')">Back to Dashboard</button>
+    </div>
+
+    <!-- Withdraw -->
+    <div id="slideWithdraw" class="slide withdraw">
+        <h2>Withdraw Money</h2>
+        <div class="form-group">
+            <input type="number" id="withdrawAmount" placeholder="Enter Amount">
+            <button onclick="withdraw()">Withdraw</button>
+        </div>
+        <button class="back" onclick="showSlide('slideDashboard')">Back to Dashboard</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        Created by Durga
+    </footer>
+
+</div>
+
+<script>
+let currentUser = null;
+
+function showSlide(id){
+    document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function hashPassword(pass){
+    let hash = 0;
+    for(let i=0;i<pass.length;i++){
+        hash = ((hash<<5)-hash)+pass.charCodeAt(i);
+        hash = hash & hash;
+    }
+    return hash;
+}
+
+function register(){
+    let name=document.getElementById('regName').value;
+    let pass=document.getElementById('regPass').value;
+    let amount=parseFloat(document.getElementById('regAmount').value);
+    if(!name||!pass||isNaN(amount)){alert('Fill all fields'); return;}
+    let users=JSON.parse(localStorage.getItem('users')||'[]');
+    if(users.find(u=>u.name===name)){alert('User exists'); return;}
+    users.push({name:name, pass:hashPassword(pass), balance:amount});
+    localStorage.setItem('users', JSON.stringify(users));
+    alert('Account Created!');
+    showSlide('slideLogin');
+}
+
+function login(){
+    let name=document.getElementById('loginName').value;
+    let pass=document.getElementById('loginPass').value;
+    let users=JSON.parse(localStorage.getItem('users')||'[]');
+    let user=users.find(u=>u.name===name && u.pass===hashPassword(pass));
+    if(user){currentUser=user; showSlide('slideDashboard'); document.getElementById('balanceInfo').innerText='';} 
+    else{alert('Invalid credentials');}
+}
+
+function checkBalance(){
+    if(currentUser)
+        document.getElementById('balanceInfo').innerText='Balance: ₹'+currentUser.balance.toFixed(2);
+}
+
+function deposit(){
+    let amount=parseFloat(document.getElementById('depositAmount').value);
+    if(isNaN(amount)||amount<=0){alert('Enter valid amount'); return;}
+    currentUser.balance+=amount; updateUser(); alert('Deposited ₹'+amount+' successfully!'); document.getElementById('depositAmount').value='';
+}
+
+function withdraw(){
+    let amount=parseFloat(document.getElementById('withdrawAmount').value);
+    if(isNaN(amount)||amount<=0){alert('Enter valid amount'); return;}
+    if(amount>currentUser.balance){alert('Insufficient balance'); return;}
+    currentUser.balance-=amount; updateUser(); alert('Withdrawn ₹'+amount+' successfully!'); document.getElementById('withdrawAmount').value='';
+}
+
+function logout(){currentUser=null; showSlide('slideMenu');}
+function updateUser(){
+    let users=JSON.parse(localStorage.getItem('users')||'[]');
+    users=users.map(u=>u.name===currentUser.name?currentUser:u);
+    localStorage.setItem('users', JSON.stringify(users));
+}
+</script>
+
+</body>
+</html>

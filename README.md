@@ -1,4 +1,4 @@
-# Your Money Tracker
+Your Money Tracker
 
 **Your Money Tracker** is a beginner-level web-based banking application developed by **Durga** using **HTML, CSS, and JavaScript**.  
 It allows users to **register, login, deposit, withdraw, and check balance** with an interactive and colorful dashboard.  
@@ -32,11 +32,11 @@ This project demonstrates my **front-end development skills** and learning journ
 
 *(Add your screenshots in a folder named `screenshots` and link them here)*
 
-![Home Page]C:\Users\Durga Prakash\OneDrive\Desktop\banking\Screenshots
-![Check Balance]C:\Users\Durga Prakash\OneDrive\Desktop\banking\Screenshots  
+![Home Page] C:\Users\Durga Prakash\OneDrive\Desktop\banking\Screenshots
+![Check Balance]  C:\Users\Durga Prakash\OneDrive\Desktop\banking\Screenshots  
 ![Dashboard] C:\Users\Durga Prakash\OneDrive\Desktop\banking\Screenshots
-![Deposit Page]C:\Users\Durga Prakash\OneDrive\Desktop\banking\Screenshots
-![Withdraw Page]C:\Users\Durga Prakash\OneDrive\Desktop\banking\Screenshots
+![Deposit Page] C:\Users\Durga Prakash\OneDrive\Desktop\banking\Screenshots
+![Withdraw Page] C:\Users\Durga Prakash\OneDrive\Desktop\banking\Screenshots
 ---
 
 ## 🚀 How to Run
@@ -49,8 +49,8 @@ This project demonstrates my **front-end development skills** and learning journ
 
 ## 🌐 Live Demo
 
-*(Optional: Add your hosted project link here, e.g., GitHub Pages or Netlify)*  
-[View Live Project](YOUR_LIVE_LINK_HERE)  
+ 
+[link](file:///C:/Users/Durga%20Prakash/OneDrive/Desktop/banking/login.html)
 
 ---
 
